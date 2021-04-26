@@ -1,4 +1,4 @@
-#Logging Benchmark
+# Logging Benchmark
 
 ## Summary
 ``` ini
