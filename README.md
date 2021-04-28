@@ -13,7 +13,10 @@ Intel Core i9-9900K CPU 3.60GHz (Coffee Lake), 1 CPU, 16 logical and 8 physical 
 |          Method |       Mean |     Error |    StdDev |
 |---------------- |-----------:|----------:|----------:|
 |         Default |   899.2 us |  17.92 us |  26.26 us |
+|            NLog |   481.3 us |   9.57 us |   8.96 us |
+|       NLogAsync |   156.0 us |   3.07 us |   7.53 us |
 |         Serilog | 4,109.1 us |  81.78 us | 192.78 us |
+|    SerilogAsync |   180.3 us |   3.58 us |   9.93 us |
 | SerilogEnriched | 6,749.5 us | 134.65 us | 335.33 us |
 
 #### Legends
@@ -47,6 +50,41 @@ Skewness = 0.91, Kurtosis = 2.47, MValue = 2.11
 |     10.06% | Main   | DefaultLogging.Program.Main(String[]) |
 
 
+### NLog
+```
+Runtime = .NET Core 5.0.5 (CoreCLR 5.0.521.16609, CoreFX 5.0.521.16609), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 481.306 us, StdErr = 2.312 us (0.48%), N = 15, StdDev = 8.956 us
+Min = 462.001 us, Q1 = 475.909 us, Median = 480.963 us, Q3 = 486.284 us, Max = 496.828 us
+IQR = 10.376 us, LowerFence = 460.345 us, UpperFence = 501.848 us
+ConfidenceInterval = [471.732 us; 490.881 us] (CI 99.9%), Margin = 9.575 us (1.99% of Mean)
+Skewness = -0.09, Kurtosis = 2.59, MValue = 2
+-------------------- Histogram --------------------
+[457.235 us ; 473.156 us) | @
+[473.156 us ; 491.598 us) | @@@@@@@@@@@@
+[491.598 us ; 501.595 us) | @@
+---------------------------------------------------
+```
+
+### NLog Async
+```
+Runtime = .NET Core 5.0.5 (CoreCLR 5.0.521.16609, CoreFX 5.0.521.16609), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 156.025 us, StdErr = 0.893 us (0.57%), N = 71, StdDev = 7.525 us
+Min = 140.422 us, Q1 = 150.403 us, Median = 155.704 us, Q3 = 161.857 us, Max = 171.094 us
+IQR = 11.453 us, LowerFence = 133.223 us, UpperFence = 179.037 us
+ConfidenceInterval = [152.957 us; 159.093 us] (CI 99.9%), Margin = 3.068 us (1.97% of Mean)
+Skewness = -0.06, Kurtosis = 2.15, MValue = 3.3
+-------------------- Histogram --------------------
+[138.037 us ; 141.219 us) | @
+[141.219 us ; 146.124 us) | @@@@@@@
+[146.124 us ; 151.620 us) | @@@@@@@@@@@@
+[151.620 us ; 156.391 us) | @@@@@@@@@@@@@@@@@@
+[156.391 us ; 159.596 us) | @@@@@
+[159.596 us ; 164.367 us) | @@@@@@@@@@@@@@@@@@@@
+[164.367 us ; 169.512 us) | @@@@@@
+[169.512 us ; 173.480 us) | @@
+---------------------------------------------------
+```
+
 ### Serilog
 ```
 Runtime = .NET Core 5.0.5 (CoreCLR 5.0.521.16609, CoreFX 5.0.521.16609), X64 RyuJIT; GC = Concurrent Workstation
@@ -73,7 +111,28 @@ Skewness = -0.06, Kurtosis = 3.54, MValue = 2
 |      8.36% | Main   | SerilogLogging.Program.Main(String[])                                                    |
 |      0.85% | Set    | Serilog.Sinks.SystemConsole.Themes.SystemConsoleTheme.Set(TextWriter, ConsoleThemeStyle) |
 
-### SerilogEnriched
+### Serilog Async
+```
+Runtime = .NET Core 5.0.5 (CoreCLR 5.0.521.16609, CoreFX 5.0.521.16609), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 180.299 us, StdErr = 1.053 us (0.58%), N = 89, StdDev = 9.934 us
+Min = 156.031 us, Q1 = 175.338 us, Median = 178.373 us, Q3 = 184.346 us, Max = 204.798 us
+IQR = 9.008 us, LowerFence = 161.827 us, UpperFence = 197.857 us
+ConfidenceInterval = [176.714 us; 183.884 us] (CI 99.9%), Margin = 3.585 us (1.99% of Mean)
+Skewness = 0.3, Kurtosis = 3.26, MValue = 2.32
+-------------------- Histogram --------------------
+[155.030 us ; 160.871 us) | @@@@
+[160.871 us ; 169.240 us) | @@@
+[169.240 us ; 174.661 us) | @@@@@@@@@@@@@
+[174.661 us ; 180.501 us) | @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[180.501 us ; 186.655 us) | @@@@@@@@@@@@@@@
+[186.655 us ; 192.495 us) | @@@@@@@@@@@
+[192.495 us ; 199.869 us) | @@@@@@
+[199.869 us ; 206.238 us) | @@@@
+---------------------------------------------------
+```
+
+
+### Serilog Enriched
 ```
 Runtime = .NET Core 5.0.5 (CoreCLR 5.0.521.16609, CoreFX 5.0.521.16609), X64 RyuJIT; GC = Concurrent Workstation
 Mean = 6.749 ms, StdErr = 0.039 ms (0.58%), N = 73, StdDev = 0.335 ms

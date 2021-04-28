@@ -15,23 +15,26 @@ namespace Benchmarks
         }
 
         [Benchmark]
-        public async ValueTask Default()
-        {
-            var response = await _client.GetAsync("https://localhost:5001/WeatherForecast");
-        }
+        public async ValueTask Default() => await this.GetAsync(5000);
 
         [Benchmark]
-        public async ValueTask Serilog()
-        {
-            var response = await _client.GetAsync("https://localhost:5003/WeatherForecast");
-        }
+        public async ValueTask NLog() =>  await this.GetAsync(5001);
         
         [Benchmark]
-        public async ValueTask SerilogEnriched()
-        {
-            var response = await _client.GetAsync("https://localhost:5005/WeatherForecast");
-        }
+        public async ValueTask NLogAsync() => await this.GetAsync(5002);
+        
+        [Benchmark]
+        public async ValueTask Serilog() => await this.GetAsync(5003);
+        
+        [Benchmark]
+        public async ValueTask SerilogAsync() => await this.GetAsync(5004);
+        
+        [Benchmark]
+        public async ValueTask SerilogEnriched() => await this.GetAsync(5005);
 
+        
+        private async Task GetAsync(int port) => await this._client.GetAsync($"https://localhost:{port}/WeatherForecast");
+        
         public void Dispose() => _client?.Dispose();
     }
 }
